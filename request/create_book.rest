@@ -1,0 +1,15 @@
+POST http://localhost:3000/api/v1/book 
+Content-Type: application/json
+
+{
+  "isbn": 9780751548556,
+  "title": "The lucky one",
+  "author": "Nicholas Sparks",
+  "summary": "Do you believe in lucky charms?",
+  "image":"http://s.s-bol.com/imgbase0/imagebase/large/FC/7/0/3/7/1001004011797307.jpg",
+  "price": {
+    "currency": "MXN",
+    "value": 9.8,
+    "displayValue": "9.80"
+  }
+}

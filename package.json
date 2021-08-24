@@ -1,0 +1,42 @@
+{
+  "name": "01-node-book",
+  "version": "1.0.0",
+  "description": "REST API with NodeJS from scratch",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon src/app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/evertcode/01-node-book.git"
+  },
+  "keywords": [
+    "Node",
+    "JavaScript",
+    "Express",
+    "API",
+    "REST"
+  ],
+  "author": "evertcode",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/evertcode/01-node-book/issues"
+  },
+  "homepage": "https://github.com/evertcode/01-node-book#readme",
+  "dependencies": {
+    "express": "4.17.1",
+    "morgan": "1.10.0",
+    "uuid": "8.3.2"
+  },
+  "devDependencies": {
+    "nodemon": "2.0.12",
+    "standard": "16.0.3"
+  },
+  "eslintConfig": {
+    "extends": "./node_modules/standard/eslintrc.json",
+    "rules": {
+      "comma-dangle": "off"
+    }
+  }
+}
