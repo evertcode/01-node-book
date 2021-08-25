@@ -38,16 +38,13 @@ const updateBook = (req, res) => {
   const { id } = req.params
   const { title, author, summary, image, price } = req.body
 
-  let book = findById(id)
+  const book = findById(id)
 
-  book = {
-    ...book,
-    title,
-    author,
-    summary,
-    image,
-    price,
-  }
+  book.title = title
+  book.summary = summary
+  book.author = author
+  book.image = image
+  book.price = price
 
   res.status(200).json(book)
 }

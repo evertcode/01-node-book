@@ -1,1 +1,1 @@
-GET http://localhost:3000/api/v1/book/f517e5c0-b8ed-4e20-8aca-8f2806f34e7c
+GET http://localhost:3000/api/v1/book/f5c31fa2-7fec-44c6-80d3-8b00930a8558
