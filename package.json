@@ -4,7 +4,9 @@
   "description": "REST API with NodeJS from scratch",
   "main": "app.js",
   "scripts": {
-    "start": "nodemon src/app.js",
+    "dev": "nodemon src/app.js",
+    "lint": "npm run lint",
+    "start": "node src/app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -25,11 +27,15 @@
   },
   "homepage": "https://github.com/evertcode/01-node-book#readme",
   "dependencies": {
+    "cors": "2.8.5",
+    "dotenv": "10.0.0",
     "express": "4.17.1",
+    "mongoose": "6.0.0",
     "morgan": "1.10.0",
     "uuid": "8.3.2"
   },
   "devDependencies": {
+    "eslint": "7.32.0",
     "nodemon": "2.0.12",
     "standard": "16.0.3"
   },
