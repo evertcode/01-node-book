@@ -1,11 +1,21 @@
+require('dotenv').config()
+require('./mongodb')
+
 const express = require('express')
 const app = express()
+const cors = require('cors')
 const morgan = require('morgan')
 
 // Import routes from bookstore
-const bookstore = require('./routes/bookstore')
+// const bookstore = require('./routes/bookstore')
+const bookstore = require('./routes/book')
+const notFound = require('./middleware/notFound')
+const handleErrors = require('./middleware/handleErrors')
 
-const PORT = process.env.PORT || 3000
+const PORT = process.env.PORT || 4000
+
+// cors middleware
+app.use(cors())
 
 // Morgan middleware
 app.use(morgan('combined'))
@@ -27,26 +37,36 @@ app.all('*', (req, res, next) => {
   next()
 })
 
+app.get('/', (req, res) => {
+  console.log(req.ip)
+  console.log(req.ips)
+  console.log(req.originalUrl)
+  res.send('<h1>Hello World!</h1>')
+})
+
 // API home page
 app.get('/', (req, res) => {
   res.status(200).send('Welcome to bookstore API RESTful')
 })
 
 // route to /api/v1/book
-app.route('/api/v1/book').get(bookstore.getBooks).post(bookstore.postBook)
+app.route('/api/v1/book').get(bookstore.getAll).post(bookstore.createBook)
 
 // route to /api/v1/book/:id
 app
   .route('/api/v1/book/:id')
-  .get(bookstore.getBook)
+  .get(bookstore.getById)
   .patch(bookstore.updateBook)
-  .delete(bookstore.deleteBook)
+  .delete(bookstore.deleteById)
+
+app.use(notFound)
+app.use(handleErrors)
 
 // Started the server.
-app.listen(PORT, () => {
-  console.log('listening on port ' + PORT)
+const server = app.listen(PORT, () => {
+  console.log('Server running on port ' + PORT)
   console.log('Press ctrl + c to exit.')
 })
 
 // Export module for testing purposes
-module.exports = app
+module.exports = { server, app }
