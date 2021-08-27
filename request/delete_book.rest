@@ -1,1 +1,1 @@
-DELETE http://localhost:3000/api/v1/book/1f00e784-6e72-400d-86d0-b284c09ee42e
+DELETE http://localhost:4000/api/v1/book/6128370807560080a3fe4766
