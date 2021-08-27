@@ -38,7 +38,7 @@ app.all('*', (req, res, next) => {
 })
 
 // API home page
-app.get('/', (req, res) => {
+app.get('/bookstore/', (req, res) => {
   console.log(req.ip)
   console.log(req.ips)
   console.log(req.originalUrl)
@@ -46,11 +46,14 @@ app.get('/', (req, res) => {
 })
 
 // route to /api/v1/book
-app.route('/api/v1/book').get(bookRoutes.getAll).post(bookRoutes.createBook)
+app
+  .route('/bookstore/api/v1/book')
+  .get(bookRoutes.getAll)
+  .post(bookRoutes.createBook)
 
 // route to /api/v1/book/:id
 app
-  .route('/api/v1/book/:id')
+  .route('/bookstore/api/v1/book/:id')
   .get(bookRoutes.getById)
   .patch(bookRoutes.updateBook)
   .delete(bookRoutes.deleteById)

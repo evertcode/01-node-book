@@ -9,7 +9,9 @@ const bookSchema = new Schema({
   price: {
     currency: String,
     value: Number,
-    valueDisplay: String,
+    display: {
+      value: String,
+    },
   },
 })
 
