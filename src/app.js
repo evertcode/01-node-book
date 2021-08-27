@@ -8,7 +8,7 @@ const morgan = require('morgan')
 
 // Import routes from bookstore
 // const bookstore = require('./routes/bookstore')
-const bookstore = require('./routes/book')
+const bookRoutes = require('./routes/book')
 const notFound = require('./middleware/notFound')
 const handleErrors = require('./middleware/handleErrors')
 
@@ -37,27 +37,23 @@ app.all('*', (req, res, next) => {
   next()
 })
 
+// API home page
 app.get('/', (req, res) => {
   console.log(req.ip)
   console.log(req.ips)
   console.log(req.originalUrl)
-  res.send('<h1>Hello World!</h1>')
-})
-
-// API home page
-app.get('/', (req, res) => {
   res.status(200).send('Welcome to bookstore API RESTful')
 })
 
 // route to /api/v1/book
-app.route('/api/v1/book').get(bookstore.getAll).post(bookstore.createBook)
+app.route('/api/v1/book').get(bookRoutes.getAll).post(bookRoutes.createBook)
 
 // route to /api/v1/book/:id
 app
   .route('/api/v1/book/:id')
-  .get(bookstore.getById)
-  .patch(bookstore.updateBook)
-  .delete(bookstore.deleteById)
+  .get(bookRoutes.getById)
+  .patch(bookRoutes.updateBook)
+  .delete(bookRoutes.deleteById)
 
 app.use(notFound)
 app.use(handleErrors)

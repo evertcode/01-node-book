@@ -7,6 +7,8 @@ if (!MONGO_DB_URI) {
   console.error('MONGO_DB_URI not found.')
 }
 
+mongoose.Promise = global.Promise
+
 // conexión a mongodb
 mongoose
   .connect(MONGO_DB_URI, {
