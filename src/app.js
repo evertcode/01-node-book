@@ -5,9 +5,9 @@ const express = require('express')
 const app = express()
 const cors = require('cors')
 const morgan = require('morgan')
+const { buildSchema } = require('graphql')
+const { graphqlHTTP } = require('express-graphql')
 
-// Import routes from bookstore
-// const bookstore = require('./routes/bookstore')
 const bookRoutes = require('./routes/book')
 const notFound = require('./middleware/notFound')
 const handleErrors = require('./middleware/handleErrors')
@@ -18,7 +18,7 @@ const PORT = process.env.PORT || 4000
 app.use(cors())
 
 // Morgan middleware
-app.use(morgan('combined'))
+app.use(morgan('dev'))
 
 // Express json middleware
 app.use(express.json())
@@ -36,6 +36,25 @@ app.all('*', (req, res, next) => {
 
   next()
 })
+
+const schema = buildSchema(`
+  type Query {
+    hello: String
+  }
+`)
+
+const rootValue = {
+  hello: () => console.log('hello world'),
+}
+
+app.use(
+  '/graphql',
+  graphqlHTTP({
+    schema: schema,
+    rootValue: rootValue,
+    graphiql: true,
+  })
+)
 
 // API home page
 app.get('/bookstore/', (req, res) => {
