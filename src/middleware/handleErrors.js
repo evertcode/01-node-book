@@ -1,4 +1,4 @@
-module.exports = (error, req, res, next) => {
+module.exports = (error, req, res) => {
   console.error(error)
 
   error.name === 'CastError' &&
