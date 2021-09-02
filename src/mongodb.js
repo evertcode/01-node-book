@@ -18,6 +18,8 @@ mongoose
   .then(() => console.log('Mongoose is connected'))
   .catch((err) => console.error(err))
 
-process.on('uncaughtException', () => {
+process.on('uncaughtException', (err, origin) => {
+  console.error(`Caught exception: ${err}`)
+  console.error(`Exception origin: ${origin}`)
   mongoose.disconnect()
 })
