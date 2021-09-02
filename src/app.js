@@ -5,8 +5,9 @@ const express = require('express')
 const app = express()
 const cors = require('cors')
 const morgan = require('morgan')
-const { buildSchema } = require('graphql')
 const { graphqlHTTP } = require('express-graphql')
+
+const schema = require('./schemas')
 
 const bookRoutes = require('./routes/book')
 const notFound = require('./middleware/notFound')
@@ -23,35 +24,10 @@ app.use(morgan('dev'))
 // Express json middleware
 app.use(express.json())
 
-// default middleware options
-app.all('*', (req, res, next) => {
-  res.header('Access-Control-Allow-Origin', '*')
-  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')
-  res.header(
-    'Access-Control-Allow-Headers',
-    'Content-type,Accept,X-Access-Token,X-Key'
-  )
-
-  req.method === 'OPTIONS' && res.status(200).end()
-
-  next()
-})
-
-const schema = buildSchema(`
-  type Query {
-    hello: String
-  }
-`)
-
-const rootValue = {
-  hello: () => console.log('hello world'),
-}
-
 app.use(
   '/graphql',
   graphqlHTTP({
     schema: schema,
-    rootValue: rootValue,
     graphiql: true,
   })
 )
