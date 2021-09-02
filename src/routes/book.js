@@ -1,4 +1,4 @@
-const Book = require('../model/Book')
+const Book = require('../models/Book')
 
 // Get all list of books from the database
 const getAll = (req, res) => {
