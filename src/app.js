@@ -5,9 +5,10 @@ const express = require('express')
 const app = express()
 const cors = require('cors')
 const morgan = require('morgan')
+const { graphqlHTTP } = require('express-graphql')
 
-// Import routes from bookstore
-// const bookstore = require('./routes/bookstore')
+const schema = require('./schemas')
+
 const bookRoutes = require('./routes/book')
 const notFound = require('./middleware/notFound')
 const handleErrors = require('./middleware/handleErrors')
@@ -18,24 +19,18 @@ const PORT = process.env.PORT || 4000
 app.use(cors())
 
 // Morgan middleware
-app.use(morgan('combined'))
+app.use(morgan('dev'))
 
 // Express json middleware
 app.use(express.json())
 
-// default middleware options
-app.all('*', (req, res, next) => {
-  res.header('Access-Control-Allow-Origin', '*')
-  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')
-  res.header(
-    'Access-Control-Allow-Headers',
-    'Content-type,Accept,X-Access-Token,X-Key'
-  )
-
-  req.method === 'OPTIONS' && res.status(200).end()
-
-  next()
-})
+app.use(
+  '/graphql',
+  graphqlHTTP({
+    schema: schema,
+    graphiql: true,
+  })
+)
 
 // API home page
 app.get('/bookstore/', (req, res) => {
