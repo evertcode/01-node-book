@@ -5,10 +5,12 @@ const typeDefs = `
   type Query {
     hello: String!
     greet(name: String!): String!
+    books: [Book]
   }
 
   type Mutation {
     createBook(book: InputBook!): Book
+    deleteBook(id: ID!): Book
   }
 
   input InputBook {
@@ -21,7 +23,7 @@ const typeDefs = `
   }
 
   input InputPrice {
-    current: String!
+    currency: String!
     value: Float!
     display: InputDisplay!
   }
@@ -41,7 +43,7 @@ const typeDefs = `
   }
 
   type Price {
-    current: String!
+    currency: String!
     value: Float!
     display: Display!
   }
